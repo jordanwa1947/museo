@@ -29,7 +29,6 @@ class FileIO
       }
       photographs << photograph_hash
     end
-    binding.pry
     return photographs
   end
 end
