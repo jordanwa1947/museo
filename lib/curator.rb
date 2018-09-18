@@ -48,4 +48,19 @@ class Curator
       find_photographs_by_artist(artist).count
     end
   end
+
+  def photographs_taken_by_artists_from(country)
+    artist_country_hash = group_artist_by_country
+    return [] if artist_country_hash[country] == nil
+    photo_array = artist_country_hash[country].map do |artist|
+      find_photographs_by_artist(artist)
+    end
+    photo_array.flatten
+  end
+
+  def group_artist_by_country
+    country = @artists.group_by do |artist|
+      artist.country
+    end
+  end
 end
