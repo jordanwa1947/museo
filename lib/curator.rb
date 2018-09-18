@@ -1,3 +1,4 @@
+require './lib/file_io'
 class Curator
   attr_reader :artists, :photographs
   def initialize
@@ -63,4 +64,21 @@ class Curator
       artist.country
     end
   end
+
+  def load_photographs(file_path)
+    file_loader = FileIO.new
+    array_of_photo_info = file_loader.load_photographs(file_path)
+    array_of_photo_info.each do |hash|
+      add_photograph(hash)
+    end
+  end
+
+  def load_artists(file_path)
+    file_loader = FileIO.new
+    file_loader.load_artists(file_path)
+    array_of_artist_info.each do |hash|
+      add_artist(hash)
+    end 
+  end
+
 end
