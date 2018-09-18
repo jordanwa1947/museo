@@ -77,4 +77,13 @@ class Curator
     end
   end
 
+  def photographs_taken_between(year_range)
+    array = @photographs.find_all do |photograph|
+      years = year_range.to_s
+      range = years.split('..')
+      photo_year = photograph.year.to_i
+      photo_year > range[0].to_i and photo_year < range[1].to_i
+    end
+    array
+  end
 end

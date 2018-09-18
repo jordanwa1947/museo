@@ -363,18 +363,20 @@ class CuratorTest < Minitest::Test
     assert_equal 6, curator.artists.count
   end
 
-  # def test_that_it_can_find_photographs_taken_in_year_range
-  #   curator = Curator.new
-  #
-  #   curator.load_photographs('./data/photographs.csv')
-  #   curator.load_artists('./data/artists.csv')
-  #
-  #   actual = curator.photographs_taken_between(1950..1965)
-  #
-  #   assert_equal 2, actual.length
-  #   assert_instance_of Photograph, actual.first
-  #   assert_equal '1962', actual
-  #
-  # end
+  def test_that_it_can_find_photographs_taken_in_year_range
+    curator = Curator.new
+
+    artists = FileIO.load_artists('./data/artists.csv')
+    photographs = FileIO.load_photographs('./data/photographs.csv')
+
+    curator.load_photographs(artists)
+    curator.load_artists(photographs)
+
+    actual = curator.photographs_taken_between(1950..1965)
+
+    assert_equal 2, actual.length
+    assert_instance_of Photograph, actual.first
+    assert_equal '1962', actual
+  end
 
 end
