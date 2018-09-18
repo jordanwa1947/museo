@@ -34,4 +34,18 @@ class Curator
       photograph.artist_id == artist.id
     end
   end
+
+  def artists_with_multiple_photographs
+    count_hash = group_artist_by_count
+    artists_with_photographs = count_hash.select do |count, artists|
+      count > 1
+    end
+    artists_with_photographs.values.flatten
+  end
+
+  def group_artist_by_count
+    @artists.group_by do |artist|
+      find_photographs_by_artist(artist).count
+    end
+  end
 end

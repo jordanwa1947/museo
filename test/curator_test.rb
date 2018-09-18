@@ -197,4 +197,74 @@ class CuratorTest < Minitest::Test
     assert_equal  "Identical Twins, Roselle, New Jersey", actual.first.name
   end
 
+  def test_that_it_can_find_photographs_by_artist
+    curator = Curator.new
+
+    photo_1 = {
+      id: "1",
+      name: "Rue Mouffetard, Paris (Boy with Bottles)",
+      artist_id: "1",
+      year: "1954"
+    }
+    curator.add_photograph(photo_1)
+
+    photo_2 = {
+      id: "2",
+      name: "Moonrise, Hernandez",
+      artist_id: "2",
+      year: "1941"
+    }
+    curator.add_photograph(photo_2)
+
+    photo_3 = {
+      id: "3",
+      name: "Identical Twins, Roselle, New Jersey",
+      artist_id: "3",
+      year: "1967"
+    }
+    curator.add_photograph(photo_3)
+
+    photo_4 = {
+      id: "4",
+      name: "Child with Toy Hand Grenade in Central Park",
+      artist_id: "3",
+      year: "1962"
+    }
+    curator.add_photograph(photo_4)
+
+    artist_1 = {
+      id: "1",
+      name: "Henri Cartier-Bresson",
+      born: "1908",
+      died: "2004",
+      country: "France"
+    }
+    curator.add_artist(artist_1)
+
+    artist_2 = {
+      id: "2",
+      name: "Ansel Adams",
+      born: "1902",
+      died: "1984",
+      country: "United States"
+    }
+    curator.add_artist(artist_2)
+
+    artist_3 = {
+      id: "3",
+      name: "Diane Arbus",
+      born: "1923",
+      died: "1971",
+      country: "United States"
+    }
+    curator.add_artist(artist_3)
+
+    actual = curator.artists_with_multiple_photographs
+
+    assert_instance_of Artist, actual.first
+    assert_equal 1, actual.length
+    assert_equal "3", actual.last.id
+    assert_equal  "Diane Arbus", actual.first.name
+  end
+
 end
