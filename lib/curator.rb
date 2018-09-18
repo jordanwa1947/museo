@@ -14,4 +14,18 @@ class Curator
     new_artist = Artist.new(artist_hash)
     @artists << new_artist
   end
+
+  def find_artist_by_id(id)
+    artist_array = @artists.select do |artist|
+      artist.id == id
+    end
+    artist_array[0]
+  end
+
+  def find_photograph_by_id(id)
+    photograph_array = @photographs.select do |photograph|
+      photograph.id == id
+    end
+    photograph_array[0]
+  end
 end
